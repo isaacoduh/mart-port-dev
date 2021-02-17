@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using MartPortDev.Data;
 using Microsoft.EntityFrameworkCore;
+using MartPortDev.Services;
 
 namespace MartPortDev
 {
@@ -33,7 +34,11 @@ namespace MartPortDev
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("martport.dev"))
             );
+
+            services.AddTransient<IMaterialService, MaterialService>();
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
