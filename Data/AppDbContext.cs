@@ -16,5 +16,11 @@ namespace MartPortDev.Data
 
         public virtual DbSet<CustomerDetail> CustomerDetails { get; set; }
 
+        public virtual DbSet<Material> Materials { get; set; }
+        public virtual DbSet<MaterialStock> MaterialStocks { get; set; }
+        public virtual DbSet<MaterialStockSnapshot> MaterialStockSnapshots { get; set; }
+        public virtual DbSet<SalesOrder> SalesOrders { get; set; }
+        public virtual DbSet<SalesOrderItem> SalesOrderItems { get; set; }
+
     }
 }
