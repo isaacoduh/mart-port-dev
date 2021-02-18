@@ -6,7 +6,7 @@ using MartPortDev.ViewModels;
 
 namespace MartPortDev.Serialization
 {
-    public class MaterialMapper
+    public static class MaterialMapper
     {
         /// <summary>
         /// Maps a Material data model to a Material view model

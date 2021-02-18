@@ -36,6 +36,9 @@ namespace MartPortDev
             );
 
             services.AddTransient<IMaterialService, MaterialService>();
+            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IStockService, StockService>();
+            services.AddTransient<IOrderService, OrderService>();
         }
 
 
