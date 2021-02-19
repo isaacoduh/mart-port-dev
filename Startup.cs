@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using MartPortDev.Data;
 using Microsoft.EntityFrameworkCore;
 using MartPortDev.Services;
@@ -29,7 +29,14 @@ namespace MartPortDev
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors();
+            services.AddControllers().AddNewtonsoftJson(opts =>
+            {
+                opts.SerializerSettings.ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                };
+            });
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("martport.dev"))
@@ -54,6 +61,11 @@ namespace MartPortDev
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(
+                builder => builder.WithOrigins("http://localhost:8000", "http://localhost:8081",
+                        "http://localhost:8082").AllowAnyMethod().AllowAnyHeader().AllowCredentials() 
+              );
+        
 
             app.UseAuthorization();
 
