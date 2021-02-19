@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MartPortDev.Services
 {
-    interface ICustomerService
+    public interface ICustomerService
     {
         List<Data.Customer> GetAllCustomers();
         BaseServiceResponse<Data.Customer> CreateCustomer(Data.Customer customer);

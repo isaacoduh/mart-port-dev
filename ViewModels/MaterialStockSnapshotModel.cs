@@ -20,7 +20,7 @@ namespace MartPortDev.ViewModels
     /// 
     public class SnapshotResponse
     {
-        public List<MaterialStockSnapshotModel> MaterialStockSnapshotModels { get; set; }
+        public List<MaterialStockSnapshotModel> MaterialStockSnapshots { get; set; }
         public List<DateTime> Timeline { get; set; }
     }
 }
