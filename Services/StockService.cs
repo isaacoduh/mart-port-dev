@@ -33,7 +33,7 @@ namespace MartPortDev.Services
 
         public List<MaterialStockSnapshot> GetSnapshotHistory()
         {
-            var latest = DateTime.UtcNow - TimeSpan.FromHours(6);
+            var latest = DateTime.UtcNow - TimeSpan.FromHours(2);
             return _db.MaterialStockSnapshots.Include(snap => snap.Material).Where(snap => snap.SnapshotTime > latest && !snap.Material.IsArchived).ToList();
         }
 
@@ -55,7 +55,7 @@ namespace MartPortDev.Services
 
                 try
                 {
-                    CreateSnapshot(stock);
+                    CreateSnapshot();
                 }catch(Exception e)
                 {
                     _logger.LogError("Error creating stock snapshot.");
@@ -81,16 +81,20 @@ namespace MartPortDev.Services
         }
 
 
-        private void CreateSnapshot(MaterialStock stock)
+        private void CreateSnapshot()
         {
             var now = DateTime.UtcNow;
-            var snapshot = new MaterialStockSnapshot
+            var stocks = _db.MaterialStocks.Include(stk => stk.Material).ToList();
+            foreach(var stock in stocks)
             {
-                SnapshotTime = now,
-                Material = stock.Material,
-                AvailableQuantity = stock.AvailableQuantity
-            };
-            _db.Add(snapshot);
+                var snapshot = new MaterialStockSnapshot
+                {
+                    SnapshotTime = now,
+                    Material = stock.Material,
+                    AvailableQuantity = stock.AvailableQuantity
+                };
+                _db.Add(snapshot);
+            }
         }
     }
 }

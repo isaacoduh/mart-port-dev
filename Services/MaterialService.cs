@@ -96,7 +96,7 @@ namespace MartPortDev.Services
                     Data = null,
                     Time = DateTime.UtcNow,
                     Message = e.StackTrace,
-                    IsSuccess = true
+                    IsSuccess = false
                 };
             }
         }

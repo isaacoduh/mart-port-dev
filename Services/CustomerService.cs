@@ -97,7 +97,7 @@ namespace MartPortDev.Services
         /// <returns>List<Customer></returns>
         List<Customer> ICustomerService.GetAllCustomers()
         {
-            return _db.Customers.Include(customer => customer.CreatedAt).OrderBy(customer => customer.LastName).ToList();
+            return _db.Customers.Include(customer => customer.customerDetails).OrderBy(customer => customer.LastName).ToList();
         }
 
        
